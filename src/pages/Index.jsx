@@ -1,10 +1,8 @@
-// Update this page (the content is just a fallback if you fail to update the page)
-
 const Index = () => {
   return (
-    <div className="text-center">
-      <h1 className="text-3xl">Your Blank Canvas</h1>
-      <p>Chat with the agent to start making edits.</p>
+    <div className="space-y-4">
+      <h2 className="text-2xl font-bold">Welcome to Our App</h2>
+      <p>This is the home page of your application. You can add more content here.</p>
     </div>
   );
 };
