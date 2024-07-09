@@ -11,8 +11,16 @@ import Contact from "./pages/Contact";
 import UserManual from "./pages/UserManual";
 import Help from "./pages/Help";
 import { ThemeProvider } from "@/components/theme-provider";
+import OfflineNotification from "@/components/OfflineNotification";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export const navItems = [
   {
@@ -65,6 +73,7 @@ const App = () => {
               </Route>
             </Routes>
           </Router>
+          <OfflineNotification />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
