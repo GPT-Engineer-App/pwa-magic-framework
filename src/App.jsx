@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Features from "./pages/Features";
 import Settings from "./pages/Settings";
 import Contact from "./pages/Contact";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const queryClient = new QueryClient();
 
@@ -37,19 +38,21 @@ export const navItems = [
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router>
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route index element={<Index />} />
-              <Route path="features" element={<Features />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="contact" element={<Contact />} />
-            </Route>
-          </Routes>
-        </Router>
-      </TooltipProvider>
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+        <TooltipProvider>
+          <Toaster />
+          <Router>
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route index element={<Index />} />
+                <Route path="features" element={<Features />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="contact" element={<Contact />} />
+              </Route>
+            </Routes>
+          </Router>
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };

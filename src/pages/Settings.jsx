@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import { useTheme } from "@/components/theme-provider";
 
 const Settings = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [darkMode, setDarkMode] = useState(theme === "dark");
   const [notifications, setNotifications] = useState(false);
 
+  useEffect(() => {
+    setDarkMode(theme === "dark");
+  }, [theme]);
+
   const handleDarkModeToggle = () => {
+    const newTheme = darkMode ? "light" : "dark";
+    setTheme(newTheme);
     setDarkMode(!darkMode);
     toast.success(`Dark mode ${!darkMode ? 'enabled' : 'disabled'}`);
   };
