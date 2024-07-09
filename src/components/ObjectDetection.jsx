@@ -4,6 +4,7 @@ import * as cocossd from '@tensorflow-models/coco-ssd';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useSelector } from 'react-redux';
 
 const ObjectDetection = () => {
   const videoRef = useRef(null);
@@ -11,9 +12,14 @@ const ObjectDetection = () => {
   const [model, setModel] = useState(null);
   const [streaming, setStreaming] = useState(false);
   const [objectCounts, setObjectCounts] = useState({});
+  const isOnline = useSelector((state) => state.network.isOnline);
 
   useEffect(() => {
     const loadObjectDetectionModel = async () => {
+      if (!isOnline) {
+        console.log('App is offline. Cannot load model.');
+        return;
+      }
       try {
         await tf.ready();
         const loadedModel = await cocossd.load();
@@ -24,7 +30,7 @@ const ObjectDetection = () => {
       }
     };
     loadObjectDetectionModel();
-  }, []);
+  }, [isOnline]);
 
   const startVideo = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -98,6 +104,19 @@ const ObjectDetection = () => {
       detectObjects();
     }
   }, [streaming, model]);
+
+  if (!isOnline) {
+    return (
+      <Card className="w-full max-w-3xl mx-auto">
+        <CardHeader>
+          <CardTitle>Object Detection Unavailable</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>You are currently offline. Object detection requires an internet connection.</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
