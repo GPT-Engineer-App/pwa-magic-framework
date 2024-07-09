@@ -4,6 +4,11 @@ const urlsToCache = [
   '/index.html',
   '/manifest.json',
   '/favicon.ico',
+  '/logo192.png',
+  '/logo512.png',
+  '/src/index.css',
+  '/src/App.jsx',
+  '/src/main.jsx',
 ];
 
 self.addEventListener('install', (event) => {
@@ -20,7 +25,22 @@ self.addEventListener('fetch', (event) => {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).then(
+          (response) => {
+            if(!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            const responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+
+            return response;
+          }
+        );
       })
   );
 });
