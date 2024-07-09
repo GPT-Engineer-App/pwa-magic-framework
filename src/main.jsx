@@ -5,6 +5,7 @@ import { store } from './store/store';
 import App from "./App.jsx";
 import "./index.css";
 import { setOnlineStatus } from './store/slices/networkSlice';
+import { initializePushNotifications } from './utils/pushNotifications';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -21,6 +22,9 @@ if ('serviceWorker' in navigator) {
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
         
+        // Initialize push notifications
+        initializePushNotifications(registration);
+
         // Check for updates
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
