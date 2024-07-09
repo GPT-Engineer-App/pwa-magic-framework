@@ -1,13 +1,15 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Home, Info, Settings as SettingsIcon, Mail } from "lucide-react";
+import { Home, Info, Settings as SettingsIcon, Mail, Book, HelpCircle } from "lucide-react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Index from "./pages/Index";
 import Features from "./pages/Features";
 import Settings from "./pages/Settings";
 import Contact from "./pages/Contact";
+import UserManual from "./pages/UserManual";
+import Help from "./pages/Help";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,16 @@ export const navItems = [
     to: "/contact",
     icon: <Mail className="h-4 w-4" />,
   },
+  {
+    title: "User Manual",
+    to: "/user-manual",
+    icon: <Book className="h-4 w-4" />,
+  },
+  {
+    title: "Help",
+    to: "/help",
+    icon: <HelpCircle className="h-4 w-4" />,
+  },
 ];
 
 const App = () => {
@@ -48,6 +60,8 @@ const App = () => {
                 <Route path="features" element={<Features />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="contact" element={<Contact />} />
+                <Route path="user-manual" element={<UserManual />} />
+                <Route path="help" element={<Help />} />
               </Route>
             </Routes>
           </Router>
