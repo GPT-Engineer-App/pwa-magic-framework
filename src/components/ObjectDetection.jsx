@@ -4,6 +4,7 @@ import * as cocossd from '@tensorflow-models/coco-ssd';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { loadModel, runPrediction, preprocessInput, postprocessOutput } from '@/lib/tensorflowModule';
 
 const ObjectDetection = () => {
   const videoRef = useRef(null);
@@ -13,16 +14,17 @@ const ObjectDetection = () => {
   const [objectCounts, setObjectCounts] = useState({});
 
   useEffect(() => {
-    const loadModel = async () => {
+    const loadObjectDetectionModel = async () => {
       try {
+        // Load the COCO-SSD model
         const loadedModel = await cocossd.load();
         setModel(loadedModel);
-        console.log('CocoSSD model loaded successfully');
+        console.log('COCO-SSD model loaded successfully');
       } catch (error) {
-        console.error('Failed to load CocoSSD model:', error);
+        console.error('Failed to load COCO-SSD model:', error);
       }
     };
-    loadModel();
+    loadObjectDetectionModel();
   }, []);
 
   const startVideo = async () => {
@@ -61,13 +63,20 @@ const ObjectDetection = () => {
     canvas.height = video.videoHeight;
 
     const detectFrame = async () => {
-      const predictions = await model.detect(video);
+      // Preprocess the video frame
+      const input = preprocessInput(video);
+      
+      // Run the prediction using our tensorflowModule
+      const predictions = await runPrediction(model, input);
+      
+      // Postprocess the output
+      const processedPredictions = postprocessOutput(predictions);
       
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(video, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
       const newCounts = {};
-      predictions.forEach(prediction => {
+      processedPredictions.forEach(prediction => {
         const [x, y, width, height] = prediction.bbox;
         const label = prediction.class;
 
