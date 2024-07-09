@@ -41,7 +41,7 @@ const App = () => {
         <Toaster />
         <Router>
           <Routes>
-            <Route path="/" element={<MainLayout />}>
+            <Route element={<MainLayout />}>
               <Route index element={<Index />} />
               <Route path="features" element={<Features />} />
               <Route path="settings" element={<Settings />} />
