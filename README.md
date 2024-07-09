@@ -1,38 +1,49 @@
-# pwa-magic-framework
+# PWA App
 
-"Create a new PWA project using your preferred framework, ensuring it supports service workers and a web manifest file for offline functionality."
+This is a Progressive Web App (PWA) example project.
 
-## Collaborate with GPT Engineer
+## Testing PWA Functionality
 
-This is a [gptengineer.app](https://gptengineer.app)-synced repository 🌟🤖
+### Local Development
 
-Changes made via gptengineer.app will be committed to this repo.
+1. Install dependencies:
+   ```
+   npm install
+   ```
 
-If you clone this repo and push changes, you will have them reflected in the GPT Engineer UI.
+2. Start the development server:
+   ```
+   npm run dev
+   ```
 
-## Tech stack
+3. Open Chrome and navigate to `http://localhost:5173` (or the port specified by Vite).
 
-This project is built with .
+4. Open Chrome DevTools (F12) and go to the "Application" tab.
 
-- Vite
-- React
-- shadcn-ui
-- Tailwind CSS
+5. In the left sidebar, under "Application", you should see:
+   - A "Manifest" section with details from your `manifest.json`.
+   - A "Service Workers" section showing your registered service worker.
 
-## Setup
+6. You can test offline functionality by:
+   - Checking the "Offline" box in the "Service Workers" section.
+   - Refreshing the page to see if it loads without network connection.
 
-```sh
-git clone https://github.com/GPT-Engineer-App/pwa-magic-framework.git
-cd pwa-magic-framework
-npm i
-```
+### Production
 
-```sh
-npm run dev
-```
+1. Build the project:
+   ```
+   npm run build
+   ```
 
-This will run a dev server with auto reloading and an instant preview.
+2. Serve the built files using a static server (e.g., `serve`):
+   ```
+   npx serve -s dist
+   ```
 
-## Requirements
+3. Open Chrome and navigate to the served address (usually `http://localhost:3000`).
 
-- Node.js & npm - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+4. Follow steps 4-6 from the Local Development section to test PWA features.
+
+5. You should also see an install prompt or install icon in the address bar, allowing you to install the PWA on your device.
+
+Note: For the best PWA experience, including the install prompt, make sure you're serving the app over HTTPS in a production environment.
