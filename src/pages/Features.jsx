@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ObjectDetection from "@/components/ObjectDetection";
 
 const Features = () => {
   const featuresList = [
@@ -25,6 +26,9 @@ const Features = () => {
           </Card>
         ))}
       </div>
+
+      <h3 className="text-xl font-bold mt-8 mb-4">Object Detection Demo</h3>
+      <ObjectDetection />
     </div>
   );
 };
