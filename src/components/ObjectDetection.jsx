@@ -3,12 +3,14 @@ import * as tf from '@tensorflow/tfjs';
 import * as cocossd from '@tensorflow-models/coco-ssd';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const ObjectDetection = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
   const [streaming, setStreaming] = useState(false);
+  const [objectCounts, setObjectCounts] = useState({});
 
   useEffect(() => {
     const loadModel = async () => {
@@ -44,6 +46,7 @@ const ObjectDetection = () => {
       tracks.forEach(track => track.stop());
       videoRef.current.srcObject = null;
       setStreaming(false);
+      setObjectCounts({});
     }
   };
 
@@ -63,18 +66,25 @@ const ObjectDetection = () => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(video, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
+      const newCounts = {};
       predictions.forEach(prediction => {
         const [x, y, width, height] = prediction.bbox;
+        const label = prediction.class;
+
         ctx.strokeStyle = '#00FFFF';
         ctx.lineWidth = 2;
         ctx.strokeRect(x, y, width, height);
         ctx.fillStyle = '#00FFFF';
         ctx.fillText(
-          `${prediction.class} (${Math.round(prediction.score * 100)}%)`,
+          `${label} (${Math.round(prediction.score * 100)}%)`,
           x,
           y > 10 ? y - 5 : 10
         );
+
+        newCounts[label] = (newCounts[label] || 0) + 1;
       });
+
+      setObjectCounts(newCounts);
 
       requestAnimationFrame(detectFrame);
     };
@@ -113,6 +123,24 @@ const ObjectDetection = () => {
             Stop Webcam
           </Button>
         </div>
+        {Object.keys(objectCounts).length > 0 && (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Object</TableHead>
+                <TableHead>Count</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Object.entries(objectCounts).map(([object, count]) => (
+                <TableRow key={object}>
+                  <TableCell>{object}</TableCell>
+                  <TableCell>{count}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );
