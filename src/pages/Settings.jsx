@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { useTheme } from "@/components/theme-provider";
+import { setUser } from '../store/slices/userSlice';
 
 const Settings = () => {
   const { theme, setTheme } = useTheme();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
   const [darkMode, setDarkMode] = useState(theme === "dark");
   const [notifications, setNotifications] = useState(false);
 
@@ -25,6 +29,8 @@ const Settings = () => {
   const handleNotificationsToggle = () => {
     setNotifications(!notifications);
     toast.success(`Notifications ${!notifications ? 'enabled' : 'disabled'}`);
+    // Update user preferences in Redux store
+    dispatch(setUser({ ...user, preferences: { ...user.preferences, notifications: !notifications } }));
   };
 
   const handleChangePassword = () => {
