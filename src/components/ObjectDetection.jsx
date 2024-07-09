@@ -4,7 +4,6 @@ import * as cocossd from '@tensorflow-models/coco-ssd';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { loadModel, runPrediction, preprocessInput, postprocessOutput } from '@/lib/tensorflowModule';
 
 const ObjectDetection = () => {
   const videoRef = useRef(null);
@@ -16,7 +15,7 @@ const ObjectDetection = () => {
   useEffect(() => {
     const loadObjectDetectionModel = async () => {
       try {
-        // Load the COCO-SSD model
+        await tf.ready();
         const loadedModel = await cocossd.load();
         setModel(loadedModel);
         console.log('COCO-SSD model loaded successfully');
@@ -63,20 +62,13 @@ const ObjectDetection = () => {
     canvas.height = video.videoHeight;
 
     const detectFrame = async () => {
-      // Preprocess the video frame
-      const input = preprocessInput(video);
-      
-      // Run the prediction using our tensorflowModule
-      const predictions = await runPrediction(model, input);
-      
-      // Postprocess the output
-      const processedPredictions = postprocessOutput(predictions);
+      const predictions = await model.detect(video);
       
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.drawImage(video, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
       const newCounts = {};
-      processedPredictions.forEach(prediction => {
+      predictions.forEach(prediction => {
         const [x, y, width, height] = prediction.bbox;
         const label = prediction.class;
 
