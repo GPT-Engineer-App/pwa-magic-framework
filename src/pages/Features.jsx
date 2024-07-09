@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ObjectDetection from "@/components/ObjectDetection";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info } from "lucide-react";
 
 const Features = () => {
   const featuresList = [
@@ -28,6 +30,13 @@ const Features = () => {
       </div>
 
       <h3 className="text-xl font-bold mt-8 mb-4">Object Detection Demo</h3>
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertTitle>Voice Commands Available</AlertTitle>
+        <AlertDescription>
+          You can use voice commands to control the object detection. Click the "Start Listening" button and say "start" to begin detection or "stop" to end it.
+        </AlertDescription>
+      </Alert>
       <ObjectDetection />
     </div>
   );
