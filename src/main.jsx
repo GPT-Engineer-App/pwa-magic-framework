@@ -60,3 +60,11 @@ window.addEventListener('offline', () => {
   console.log('App is offline');
   store.dispatch(setOnlineStatus(false));
 });
+
+// Load TensorFlow.js
+import * as tf from '@tensorflow/tfjs';
+tf.ready().then(() => {
+  console.log('TensorFlow.js is ready');
+}).catch(error => {
+  console.error('Error initializing TensorFlow.js:', error);
+});
