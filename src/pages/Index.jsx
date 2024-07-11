@@ -36,7 +36,7 @@ const Index = () => {
 
       <h3 className="text-xl font-bold mt-8 mb-4">Events</h3>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {events.map((event) => (
+        {events && events.map((event) => (
           <Card key={event.id}>
             <CardHeader>
               <CardTitle>{event.name}</CardTitle>
