@@ -6,11 +6,14 @@ import App from "./App.jsx";
 import "./index.css";
 import { setOnlineStatus } from './store/slices/networkSlice';
 import { initializePushNotifications } from './utils/pushNotifications';
+import { SupabaseAuthProvider } from './integrations/supabase/auth';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <SupabaseAuthProvider>
+        <App />
+      </SupabaseAuthProvider>
     </Provider>
   </React.StrictMode>,
 );
