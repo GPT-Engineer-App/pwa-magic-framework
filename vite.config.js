@@ -13,7 +13,8 @@ export default defineConfig({
         '@/components/theme-provider',
         '@/components/OfflineNotification',
         '@/components/ui/button',
-        '@/components/ui/sheet'
+        '@/components/ui/sheet',
+        '@/lib/utils'
       ],
     },
   },
