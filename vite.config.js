@@ -6,7 +6,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['@supabase/supabase-js', '@/components/ui/sonner'],
+      external: [
+        '@supabase/supabase-js',
+        '@/components/ui/sonner',
+        '@/components/ui/tooltip'
+      ],
     },
   },
 });
