@@ -12,7 +12,8 @@ export default defineConfig({
         '@/components/ui/tooltip',
         '@/components/theme-provider',
         '@/components/OfflineNotification',
-        '@/components/ui/button'
+        '@/components/ui/button',
+        '@/components/ui/sheet'
       ],
     },
   },
