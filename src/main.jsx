@@ -6,6 +6,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { setOnlineStatus } from './store/slices/networkSlice';
 import { initializePushNotifications } from './utils/pushNotifications';
+import { supabase } from './integrations/supabase/index.js';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
