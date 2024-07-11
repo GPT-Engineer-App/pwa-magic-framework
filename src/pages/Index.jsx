@@ -6,14 +6,21 @@ import { supabase, subscribeToTable } from "@/integrations/supabase";
 
 const Index = () => {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const { data, error } = await supabase.from("event").select();
-      if (error) {
-        console.error("Error fetching events:", error);
-      } else {
+      try {
+        const { data, error } = await supabase.from("event").select();
+        if (error) {
+          throw error;
+        }
         setEvents(data);
+      } catch (error) {
+        setError("Error fetching events. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,19 +62,25 @@ const Index = () => {
       </div>
 
       <h3 className="text-xl font-bold mt-8 mb-4">Events</h3>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {events.map((event) => (
-          <Card key={event.id}>
-            <CardHeader>
-              <CardTitle>{event.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Date: {event.date}</p>
-              <p>Created At: {event.created_at}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {loading ? (
+        <p>Loading events...</p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {events.map((event) => (
+            <Card key={event.id}>
+              <CardHeader>
+                <CardTitle>{event.name}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Date: {event.date}</p>
+                <p>Created At: {event.created_at}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
