@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useFetchEvents } from "../integrations/supabase/index.js";
 
 const Index = () => {
+  const { data: events, error, isLoading } = useFetchEvents();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">Welcome to Our App</h2>
@@ -23,6 +29,21 @@ const Index = () => {
               <Button className="mt-4" asChild>
                 <Link to={item.link}>Learn More</Link>
               </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <h3 className="text-xl font-bold mt-8 mb-4">Upcoming Events</h3>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {events.map((event) => (
+          <Card key={event.id}>
+            <CardHeader>
+              <CardTitle>{event.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Date: {new Date(event.date).toLocaleDateString()}</p>
+              <p>Created At: {new Date(event.created_at).toLocaleString()}</p>
             </CardContent>
           </Card>
         ))}
