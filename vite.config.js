@@ -17,7 +17,8 @@ export default defineConfig({
         '@/lib/utils',
         '@/components/ui/card',
         '@/components/ObjectDetection',
-        '@/components/ui/label'
+        '@/components/ui/label',
+        '@/components/ui/input'
       ],
     },
   },
