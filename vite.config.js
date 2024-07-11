@@ -14,7 +14,8 @@ export default defineConfig({
         '@/components/OfflineNotification',
         '@/components/ui/button',
         '@/components/ui/sheet',
-        '@/lib/utils'
+        '@/lib/utils',
+        '@/components/ui/card'
       ],
     },
   },
