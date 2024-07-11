@@ -11,7 +11,8 @@ export default defineConfig({
         '@/components/ui/sonner',
         '@/components/ui/tooltip',
         '@/components/theme-provider',
-        '@/components/OfflineNotification'
+        '@/components/OfflineNotification',
+        '@/components/ui/button'
       ],
     },
   },
