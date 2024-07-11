@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useSelector } from 'react-redux';
-import { Mic, MicOff } from 'lucide-react';
-import { toast } from 'sonner';
 
 const ObjectDetection = () => {
   const videoRef = useRef(null);
@@ -15,8 +13,6 @@ const ObjectDetection = () => {
   const [streaming, setStreaming] = useState(false);
   const [objectCounts, setObjectCounts] = useState({});
   const isOnline = useSelector((state) => state.network.isOnline);
-  const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef(null);
 
   useEffect(() => {
     const loadObjectDetectionModel = async () => {
@@ -47,7 +43,6 @@ const ObjectDetection = () => {
         }
       } catch (error) {
         console.error('Error accessing the webcam:', error);
-        toast.error('Failed to access the webcam. Please check your permissions.');
       }
     }
   };
@@ -110,60 +105,6 @@ const ObjectDetection = () => {
     }
   }, [streaming, model]);
 
-  const toggleVoiceRecognition = () => {
-    if (isListening) {
-      stopVoiceRecognition();
-    } else {
-      startVoiceRecognition();
-    }
-  };
-
-  const startVoiceRecognition = () => {
-    if ('webkitSpeechRecognition' in window) {
-      recognitionRef.current = new window.webkitSpeechRecognition();
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = false;
-
-      recognitionRef.current.onstart = () => {
-        setIsListening(true);
-        toast.success('Voice recognition started. Say "start" or "stop".');
-      };
-
-      recognitionRef.current.onresult = (event) => {
-        const last = event.results.length - 1;
-        const command = event.results[last][0].transcript.trim().toLowerCase();
-
-        if (command === 'start') {
-          startVideo();
-        } else if (command === 'stop') {
-          stopVideo();
-        }
-      };
-
-      recognitionRef.current.onerror = (event) => {
-        console.error('Speech recognition error', event.error);
-        toast.error('Voice recognition error. Please try again.');
-        setIsListening(false);
-      };
-
-      recognitionRef.current.onend = () => {
-        setIsListening(false);
-      };
-
-      recognitionRef.current.start();
-    } else {
-      toast.error('Speech recognition is not supported in your browser.');
-    }
-  };
-
-  const stopVoiceRecognition = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-      setIsListening(false);
-      toast.info('Voice recognition stopped.');
-    }
-  };
-
   if (!isOnline) {
     return (
       <Card className="w-full max-w-3xl mx-auto">
@@ -200,10 +141,6 @@ const ObjectDetection = () => {
           </Button>
           <Button onClick={stopVideo} disabled={!streaming}>
             Stop Webcam
-          </Button>
-          <Button onClick={toggleVoiceRecognition} variant={isListening ? "destructive" : "default"}>
-            {isListening ? <MicOff className="mr-2 h-4 w-4" /> : <Mic className="mr-2 h-4 w-4" />}
-            {isListening ? "Stop Listening" : "Start Listening"}
           </Button>
         </div>
         {Object.keys(objectCounts).length > 0 && (
