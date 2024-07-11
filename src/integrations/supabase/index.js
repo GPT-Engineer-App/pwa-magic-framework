@@ -64,3 +64,15 @@ export async function deleteRecord(table, query) {
   if (error) throw error;
   return record;
 }
+
+/**
+ * Subscribe to real-time updates for the specified table.
+ * @param {string} table - The table name.
+ * @param {function} callback - The callback function to handle updates.
+ */
+export function subscribeToTable(table, callback) {
+  return supabase
+    .channel(`public:${table}`)
+    .on('postgres_changes', { event: '*', schema: 'public', table }, callback)
+    .subscribe();
+}
