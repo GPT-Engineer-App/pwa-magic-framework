@@ -9,7 +9,8 @@ export default defineConfig({
       external: [
         '@supabase/supabase-js',
         '@/components/ui/sonner',
-        '@/components/ui/tooltip'
+        '@/components/ui/tooltip',
+        '@/components/theme-provider'
       ],
     },
   },
