@@ -10,7 +10,8 @@ export default defineConfig({
         '@supabase/supabase-js',
         '@/components/ui/sonner',
         '@/components/ui/tooltip',
-        '@/components/theme-provider'
+        '@/components/theme-provider',
+        '@/components/OfflineNotification'
       ],
     },
   },
