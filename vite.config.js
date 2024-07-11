@@ -16,7 +16,8 @@ export default defineConfig({
         '@/components/ui/sheet',
         '@/lib/utils',
         '@/components/ui/card',
-        '@/components/ObjectDetection'
+        '@/components/ObjectDetection',
+        '@/components/ui/label'
       ],
     },
   },
