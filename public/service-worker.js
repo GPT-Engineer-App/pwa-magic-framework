@@ -80,3 +80,27 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   }
 });
+
+// Offline Redux state persistence
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-redux-state') {
+    event.waitUntil(syncReduxState());
+  }
+});
+
+async function syncReduxState() {
+  const cache = await caches.open(RUNTIME_CACHE);
+  const response = await cache.match('/redux-state');
+  if (response) {
+    const state = await response.json();
+    // Dispatch an action to update the Redux store with the persisted state
+    self.clients.matchAll().then(clients => {
+      clients.forEach(client => {
+        client.postMessage({
+          type: 'SYNC_REDUX_STATE',
+          state
+        });
+      });
+    });
+  }
+}
