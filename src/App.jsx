@@ -70,7 +70,6 @@ const App = () => {
                 <Route path="contact" element={<Contact />} />
                 <Route path="user-manual" element={<UserManual />} />
                 <Route path="help" element={<Help />} />
-                <Route path="*" element={<Index />} /> {/* Added fallback route */}
               </Route>
             </Routes>
           </Router>
