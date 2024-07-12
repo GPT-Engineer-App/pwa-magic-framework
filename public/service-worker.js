@@ -45,9 +45,17 @@ self.addEventListener('fetch', (event) => {
 
         return caches.open(RUNTIME_CACHE).then((cache) => {
           return fetch(event.request).then((response) => {
-            return cache.put(event.request, response.clone()).then(() => {
+            // Don't cache responses that aren't successful (status in the range 200-299)
+            if (!response.ok) {
               return response;
-            });
+            }
+
+            // Clone the response because it's a stream and can only be consumed once
+            const responseToCache = response.clone();
+
+            cache.put(event.request, responseToCache);
+
+            return response;
           });
         });
       })
