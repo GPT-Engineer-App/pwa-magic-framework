@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:dev": "eas build -p android --profile development",
-    "build:prod": "eas build -p android --profile production",
+    "build:dev": "expo build:android --release-channel dev",
+    "build:prod": "expo build:android --release-channel prod",
     "eject": "expo eject",
     "test": "jest"
   },
