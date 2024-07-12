@@ -44,6 +44,9 @@ This is a React Native application built with Expo.
 - `npm run web` or `yarn web`: Starts the development server and opens the app in a web browser.
 - `npm test` or `yarn test`: Runs the test suite.
 - `npm run lint` or `yarn lint`: Runs the linter.
+- `npm run build` or `yarn build`: Builds the Android app.
+- `npm run build:dev` or `yarn build:dev`: Builds the Android app for development.
+- `npm run build:prod` or `yarn build:prod`: Builds the Android app for production.
 
 ## Folder Structure
 
