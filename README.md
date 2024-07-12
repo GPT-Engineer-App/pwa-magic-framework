@@ -1,6 +1,6 @@
 # React Native App
 
-This is a React Native application built with Expo.
+This is a React Native application built with Expo, focusing on local development.
 
 ## Prerequisites
 
@@ -56,6 +56,18 @@ This project is set up for local development using Expo. To test the app on your
 4. Scan the QR code displayed in the terminal with your device's camera.
 
 For more information on Expo development, visit the [Expo documentation](https://docs.expo.dev/).
+
+## Environment Variables
+
+To use Supabase in your local development:
+
+1. Create a `.env` file in the root of your project.
+2. Add the following lines to the `.env` file:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+   Replace `your_supabase_url` and `your_supabase_anon_key` with your actual Supabase project details.
 
 ## Folder Structure
 
