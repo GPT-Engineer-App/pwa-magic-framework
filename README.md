@@ -1,10 +1,23 @@
-# PWA App
+# Vite React Project
 
-This is a Progressive Web App (PWA) example project.
+This project is set up with Vite and React.
 
-## Testing PWA Functionality
+## Build Issue
 
-### Local Development
+We are currently experiencing issues with the GPT Engineer's build service. The build is failing due to an internal error, which persists even after simplifying the project configuration to a minimum.
+
+## Next Steps
+
+1. Report this issue to the GPT Engineer development team.
+2. Provide them with the following information:
+   - The project is a basic Vite React setup
+   - We've simplified the `vite.config.js` and `package.json` to minimum required dependencies
+   - The build service is consistently failing with an internal error
+   - The error persists across multiple attempts and configuration changes
+
+## Local Development
+
+Until the build service issue is resolved, you can try running the project locally:
 
 1. Install dependencies:
    ```
@@ -16,34 +29,9 @@ This is a Progressive Web App (PWA) example project.
    npm run dev
    ```
 
-3. Open Chrome and navigate to `http://localhost:5173` (or the port specified by Vite).
-
-4. Open Chrome DevTools (F12) and go to the "Application" tab.
-
-5. In the left sidebar, under "Application", you should see:
-   - A "Manifest" section with details from your `manifest.json`.
-   - A "Service Workers" section showing your registered service worker.
-
-6. You can test offline functionality by:
-   - Checking the "Offline" box in the "Service Workers" section.
-   - Refreshing the page to see if it loads without network connection.
-
-### Production
-
-1. Build the project:
+3. Build the project:
    ```
    npm run build
    ```
 
-2. Serve the built files using a static server (e.g., `serve`):
-   ```
-   npx serve -s dist
-   ```
-
-3. Open Chrome and navigate to the served address (usually `http://localhost:3000`).
-
-4. Follow steps 4-6 from the Local Development section to test PWA features.
-
-5. You should also see an install prompt or install icon in the address bar, allowing you to install the PWA on your device.
-
-Note: For the best PWA experience, including the install prompt, make sure you're serving the app over HTTPS in a production environment.
+If you encounter any issues locally, please report them along with any error messages you receive.
