@@ -10,7 +10,8 @@
     "eject": "expo eject",
     "test": "jest",
     "lint": "eslint .",
-    "dev": "expo start --dev-client"
+    "dev": "expo start --dev-client",
+    "build:dev": "echo 'This project is configured for local development. Use npm start or yarn start to run the development server.'"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.9",

@@ -45,6 +45,7 @@ This is a React Native application built with Expo, focusing on local developmen
 - `npm test` or `yarn test`: Runs the test suite.
 - `npm run lint` or `yarn lint`: Runs the linter.
 - `npm run dev` or `yarn dev`: Starts the development client.
+- `npm run build:dev` or `yarn build:dev`: Displays a message about local development configuration.
 
 ## Development
 
