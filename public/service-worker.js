@@ -8,9 +8,6 @@ const urlsToCache = [
   '/favicon.ico',
   '/logo192.png',
   '/logo512.png',
-  '/src/index.css',
-  '/src/App.jsx',
-  '/src/main.jsx',
 ];
 
 self.addEventListener('install', (event) => {
@@ -45,9 +42,11 @@ self.addEventListener('fetch', (event) => {
 
         return caches.open(RUNTIME_CACHE).then((cache) => {
           return fetch(event.request).then((response) => {
-            return cache.put(event.request, response.clone()).then(() => {
-              return response;
-            });
+            // Only cache successful responses
+            if (response.status === 200) {
+              cache.put(event.request, response.clone());
+            }
+            return response;
           });
         });
       })
