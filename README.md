@@ -7,6 +7,7 @@ This is a React Native application built with Expo.
 - Node.js (v14 or later)
 - npm or yarn
 - Expo CLI (`npm install -g expo-cli`)
+- EAS CLI (`npm install -g eas-cli`)
 
 ## Getting Started
 
@@ -44,9 +45,25 @@ This is a React Native application built with Expo.
 - `npm run web` or `yarn web`: Starts the development server and opens the app in a web browser.
 - `npm test` or `yarn test`: Runs the test suite.
 - `npm run lint` or `yarn lint`: Runs the linter.
-- `npm run build` or `yarn build`: Builds the Android app.
-- `npm run build:dev` or `yarn build:dev`: Builds the Android app for development.
-- `npm run build:prod` or `yarn build:prod`: Builds the Android app for production.
+- `npm run build` or `yarn build`: Builds the Android app using EAS Build.
+- `npm run build:dev` or `yarn build:dev`: Builds the Android app for development using EAS Build.
+- `npm run build:prod` or `yarn build:prod`: Builds the Android app for production using EAS Build.
+
+## Building with EAS
+
+To build your app using EAS, you need to be logged in to your Expo account. If you haven't already, create an account at https://expo.dev/ and then log in using the EAS CLI:
+
+```
+eas login
+```
+
+Then you can use the build commands mentioned above. For example, to build a development version:
+
+```
+npm run build:dev
+```
+
+This will start the build process on EAS servers. Once the build is complete, you'll receive a link to download the APK.
 
 ## Folder Structure
 
