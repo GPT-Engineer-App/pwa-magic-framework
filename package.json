@@ -9,7 +9,10 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "expo build:android",
+    "build:dev": "expo build:android --release-channel dev",
+    "build:prod": "expo build:android --release-channel prod"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.9",
